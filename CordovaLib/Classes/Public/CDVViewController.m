@@ -46,6 +46,7 @@ UIColor* defaultBackgroundColor(void) {
 @property (nonatomic, readwrite, strong) NSDictionary* pluginsMap;
 @property (nonatomic, readwrite, strong) id <CDVWebViewEngineProtocol> webViewEngine;
 @property (nonatomic, readwrite, strong) UIView* launchView;
+@property (nonatomic, readwrite, strong) NSBundle* bundle;
 
 @property (readwrite, assign) BOOL initialized;
 
@@ -96,6 +97,7 @@ UIColor* defaultBackgroundColor(void) {
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     [self __init];
+    _bundle = nibBundleOrNil;
     return self;
 }
 
@@ -576,7 +578,7 @@ UIColor* defaultBackgroundColor(void) {
         obj = [[NSClassFromString(className)alloc] initWithWebViewEngine:_webViewEngine];
         if (!obj) {
             NSString* fullClassName = [NSString stringWithFormat:@"%@.%@",
-                                       NSBundle.mainBundle.infoDictionary[@"CFBundleExecutable"],
+                                       _bundle.infoDictionary[@"CFBundleExecutable"],
                                        className];
             obj = [[NSClassFromString(fullClassName)alloc] initWithWebViewEngine:_webViewEngine];
         }
