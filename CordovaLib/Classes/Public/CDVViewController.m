@@ -474,24 +474,6 @@ UIColor* defaultBackgroundColor(void) {
     view.translatesAutoresizingMaskIntoConstraints = NO;
     [view setAlpha:0];
 
-    NSString* launchStoryboardName = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"UILaunchStoryboardName"];
-    if (launchStoryboardName != nil) {
-        UIStoryboard* storyboard = [UIStoryboard storyboardWithName:launchStoryboardName bundle:[NSBundle mainBundle]];
-        UIViewController* vc = [storyboard instantiateInitialViewController];
-        [self addChildViewController:vc];
-
-        UIView* imgView = vc.view;
-        imgView.translatesAutoresizingMaskIntoConstraints = NO;
-        [view addSubview:imgView];
-
-        [NSLayoutConstraint activateConstraints:@[
-                [NSLayoutConstraint constraintWithItem:imgView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:view attribute:NSLayoutAttributeWidth multiplier:1 constant:0],
-                [NSLayoutConstraint constraintWithItem:imgView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:view attribute:NSLayoutAttributeHeight multiplier:1 constant:0],
-                [NSLayoutConstraint constraintWithItem:imgView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:view attribute:NSLayoutAttributeCenterY multiplier:1 constant:0],
-                [NSLayoutConstraint constraintWithItem:imgView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:view attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]
-            ]];
-    }
-
     self.launchView = view;
     [self.view addSubview:view];
 
