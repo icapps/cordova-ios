@@ -69,6 +69,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readwrite, copy) NSString* configFile;
 @property (nonatomic, readwrite, copy) NSString* wwwFolderName;
 @property (nonatomic, readwrite, copy) NSString* startPage;
+@property (nonatomic, readwrite, copy) NSString* fullClassNamePlugin;
 @property (nonatomic, readonly, strong) CDVCommandQueue* commandQueue;
 @property (nonatomic, readonly, strong) id <CDVWebViewEngineProtocol> webViewEngine;
 @property (nonatomic, readonly, strong) id <CDVCommandDelegate> commandDelegate;

@@ -59,7 +59,7 @@ UIColor* defaultBackgroundColor(void) {
 @synthesize supportedOrientations;
 @synthesize pluginObjects, pluginsMap, startupPluginNames;
 @synthesize configParser, settings;
-@synthesize wwwFolderName, startPage, initialized, openURL;
+@synthesize wwwFolderName, startPage, initialized, openURL, fullClassNamePlugin;
 @synthesize commandDelegate = _commandDelegate;
 @synthesize commandQueue = _commandQueue;
 @synthesize webViewEngine = _webViewEngine;
@@ -577,10 +577,10 @@ UIColor* defaultBackgroundColor(void) {
     if (!obj) {
         obj = [[NSClassFromString(className)alloc] initWithWebViewEngine:_webViewEngine];
         if (!obj) {
-            NSString* fullClassName = [NSString stringWithFormat:@"%@.%@",
-                                       _bundle.infoDictionary[@"CFBundleExecutable"],
-                                       className];
-            obj = [[NSClassFromString(fullClassName)alloc] initWithWebViewEngine:_webViewEngine];
+//            NSString* fullClassName = [NSString stringWithFormat:@"%@.%@",
+//                                       _bundle.infoDictionary[@"CFBundleExecutable"],
+//                                       className];
+            obj = [[NSClassFromString(fullClassNamePlugin)alloc] initWithWebViewEngine:_webViewEngine];
         }
 
         if (obj != nil) {
