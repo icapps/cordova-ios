@@ -565,6 +565,35 @@ static void * KVOContext = &KVOContext;
     return NO;
 }
 
+- (void)webView:(WKWebView *)webView didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition, NSURLCredential * _Nullable))completionHandler {
+    CDVViewController *vc = (CDVViewController *)self.viewController;
+    
+    // Define the selector using NSSelectorFromString
+    SEL selector = NSSelectorFromString(@"webView:didReceive:completionHandler:");
+    
+    // Iterate through plugin objects to find the one that responds to the selector
+    for (NSString *pluginName in vc.pluginObjects) {
+        CDVPlugin *plugin = vc.pluginObjects[pluginName];
+        
+        // Check if the plugin responds to the selector
+        if ([plugin respondsToSelector:selector]) {
+            // Call the method with completion handler
+            NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[plugin methodSignatureForSelector:selector]];
+            [invocation setSelector:selector];
+            [invocation setTarget:plugin];
+            [invocation setArgument:&webView atIndex:2];
+            [invocation setArgument:&challenge atIndex:3];
+            [invocation setArgument:&completionHandler atIndex:4];
+            [invocation invoke];
+            
+            return; // Exit the loop after invoking the method
+        }
+    }
+    
+    // If no plugin responds to the selector, perform default handling
+    completionHandler(NSURLSessionAuthChallengePerformDefaultHandling, nil);
+}
+
 - (void) webView: (WKWebView *) webView decidePolicyForNavigationAction: (WKNavigationAction*) navigationAction decisionHandler: (void (^)(WKNavigationActionPolicy)) decisionHandler
 {
     NSURL* url = [navigationAction.request URL];
