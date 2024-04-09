@@ -48,8 +48,12 @@
         }];
 
     [alert addAction:ok];
-
-    UIViewController* rootController = [UIApplication sharedApplication].delegate.window.rootViewController;
+    
+ 
+    UIApplication* application = [UIApplication sharedApplication];
+    UIWindow* window = application.delegate.window;
+    NSLog(@"🍪 window %@", [[UIApplication sharedApplication].delegate window]);
+    UIViewController* rootController = window.rootViewController;
 
     [rootController presentViewController:alert animated:YES completion:nil];
 }
