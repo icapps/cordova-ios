@@ -51,11 +51,7 @@
     
  
     UIWindowScene *scene = [[[[UIApplication sharedApplication] connectedScenes] allObjects] firstObject];
-
-    
-    NSLog(@"🍪 scene %@", scene);
     UIViewController* rootController = scene.keyWindow.rootViewController;
-
     [rootController presentViewController:alert animated:YES completion:nil];
 }
 
