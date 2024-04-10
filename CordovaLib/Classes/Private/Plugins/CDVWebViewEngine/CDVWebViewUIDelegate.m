@@ -50,10 +50,11 @@
     [alert addAction:ok];
     
  
-    UIApplication* application = [UIApplication sharedApplication];
-    UIWindow* window = application.delegate.window;
-    NSLog(@"🍪 window %@", [[UIApplication sharedApplication].delegate window]);
-    UIViewController* rootController = window.rootViewController;
+    UIWindowScene *scene = [[[[UIApplication sharedApplication] connectedScenes] allObjects] firstObject];
+
+    
+    NSLog(@"🍪 scene %@", scene);
+    UIViewController* rootController = scene.keyWindow.rootViewController;
 
     [rootController presentViewController:alert animated:YES completion:nil];
 }
